@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>Teste Front-End - S2IT - Rhenan Ferreira Dinardi</title>
+        <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+		<link rel="stylesheet" type="text/css" href="js/libs/angular-toastr/angular-toastr.min.css">
+		<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+		
+		<script src="vendor/angular/angular.min.js"></script>	
+		<script src="js/libs/angular-animate/angular-animate.min.js"></script>	
+		<script src="js/libs/angular-toastr/angular-toastr.tpls.min.js"></script>
+		
+		<script src="js/app.js"></script>
+		<script src="js/controllers/test.controller.js"></script>
+    </head>
+	
+    <body ng-app="AngularStructure" ng-controller="TestController" ng-cloak>
+        				
+		<br/>
+		<br/>
+		<br/>
+		
+		<div class="col-lg-2"></div>
+		<div class="col-lg-8">
+		
+			<div>
+				<div class="col-md-3">
+					<label class="radio-inline">
+						<input type="radio" ng-model="transactionType" value="Saque"> Saque
+					</label>
+					<label class="radio-inline">
+						<input type="radio" ng-model="transactionType" value="Depósito"> Depósito 
+					</label>
+				</div>
+				
+				<input type="number" ng-model="transactionValue" placeholder="Valor"> </input>
+				
+				<button class="btn btn-primary" ng-click="addTransaction()">Adicionar</button>
+			</div>
+		
+			<br/>
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<p class="text-center">Movimentação da conta</p>
+				</div>
+				
+					<table class="table table-bordered">
+					  <tr>
+						<th ng-click="orderTransactions('type', sortTypeDir)">
+							<span ng-if="sortTypeDir == 'desc'" class="glyphicon glyphicon-chevron-up"></span> 
+							<span ng-if="sortTypeDir == 'asc'" class="glyphicon glyphicon-chevron-down"></span> 
+							Tipo
+						</th>
+						<th ng-click="orderTransactions('value', sortValueDir )">
+							<span ng-if="sortValueDir == 'desc'" class="glyphicon glyphicon-chevron-up"></span>
+							<span ng-if="sortValueDir == 'asc'" class="glyphicon glyphicon-chevron-down"></span> 
+							Valor
+						</th>
+						<th>Ações</th>
+					  </tr>
+					  <tr ng-repeat="trans in transactionList">
+						<td>{{trans.type}}</td>
+						<td>{{trans.value | currency}}</td>
+						<td>
+							<button class="btn btn-danger" ng-click="removeTransaction($index)">
+							<span class="glyphicon glyphicon-remove">
+							</button>
+						</td>
+					  </tr>
+					</table>
+				
+				<div class="panel-footer">
+					<p class="text-right">Total em conta: {{totalFunds | currency}}</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-2"></div>
+		
+
+    </body>
+</html>
